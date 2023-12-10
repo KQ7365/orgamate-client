@@ -3,28 +3,31 @@ import { Route, Routes } from "react-router-dom";
 import { Login } from "../components/Login";
 import { RegisterAccount } from "../components/RegisterAccount";
 import { Home } from "../components/Home";
+import { ItemDetails } from "../components/ItemDetails";
+import { Organize } from "../components/Organize";
+import { Customize } from "../components/Customize";
 import { Authorized } from "../components/Authorized";
 
 export const ApplicationViews = () => {
-  //   const [itemState, setItemState] = useState();
+  const [itemState, setItemState] = useState([]);
   const [taskState, setTaskState] = useState([]);
 
-  //   const fetchItemsFromApi = async (showAll) => {
-  //     let url = "http://localhost:8000/items";
+  const fetchItemsFromApi = async (showAll) => {
+    let url = "http://localhost:8000/items";
 
-  //     if (showAll !== true) {
-  //       url = "http://localhost:8000/items?owner=current";
-  //     }
-  //     const response = await fetch(url, {
-  //       headers: {
-  //         Authorization: `Token ${
-  //           JSON.parse(localStorage.getItem("orgamate_token")).token
-  //         }`,
-  //       },
-  //     });
-  //     const items = await response.json();
-  //     setItemState(items);
-  //   };
+    if (showAll !== true) {
+      url = "http://localhost:8000/items?owner=current";
+    }
+    const response = await fetch(url, {
+      headers: {
+        Authorization: `Token ${
+          JSON.parse(localStorage.getItem("orgamate_token")).token
+        }`,
+      },
+    });
+    const items = await response.json();
+    setItemState(items);
+  };
 
   const fetchTasksFromApi = async (showAll) => {
     let url = "http://localhost:8000/tasks";
@@ -58,6 +61,20 @@ export const ApplicationViews = () => {
             />
           }
         />
+        <Route
+          path="items"
+          element={
+            <Organize
+              items={itemState}
+              fetchItems={fetchItemsFromApi}
+              showAll={true}
+            />
+          }
+        />
+        <Route path="item_details">
+          <Route path=":itemId" element={<ItemDetails />} />
+        </Route>
+        <Route path="customize" element={<Customize />} />
       </Route>
     </Routes>
   );
