@@ -21,6 +21,8 @@ export const Customize = () => {
     label: "",
   });
 
+  //* Below handles all of the useEffects for all 3 GET functions
+
   useEffect(() => {
     getAllTags().then((tagObj) => {
       setAllTags(tagObj);
