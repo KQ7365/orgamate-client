@@ -61,7 +61,11 @@ export const Home = ({ tasks, fetchTasks, showAll }) => {
 
   return (
     <div className="flex flex-col items-center">
-      <h1 className="text-center text-3xl font-bold mb-4">All Tasks</h1>
+      <h1>
+        <img src="orgamate.png" alt="Orgamate Logo" />
+      </h1>
+
+      <h2 className="text-center text-3xl font-bold mb-4">All Tasks</h2>
 
       {tasks.map((task) => (
         <div
@@ -133,4 +137,3 @@ export const Home = ({ tasks, fetchTasks, showAll }) => {
     </div>
   );
 };
-//TODO: Do the nav bar, setup the other components. Then come back here and finish this out. Then move step by step like in back end.
