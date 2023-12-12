@@ -1,5 +1,5 @@
 export const deleteOrganizeItem = (itemId) => {
-  return fetch(`http://localhost:8000/itemss/${itemId}`, {
+  return fetch(`http://localhost:8000/items/${itemId}`, {
     method: "DELETE",
     headers: {
       Authorization: `Token ${
