@@ -3,6 +3,7 @@ import { deleteOrganizeItem } from "../services/deleteOrganizeItem.jsx";
 import { getAllCategories } from "../services/getAllCategories.jsx";
 import { getAllLocations } from "../services/getAllLocations.jsx";
 import { postNewOrganizeItem } from "../services/postNewOrganizeItem.jsx";
+import { useNavigate } from "react-router-dom";
 
 export const Organize = ({ items, fetchItems, showAll }) => {
   const [newItem, setNewItem] = useState({
@@ -16,6 +17,8 @@ export const Organize = ({ items, fetchItems, showAll }) => {
   const [allLocations, setAllLocations] = useState([]);
   const [selectedTags, updateTags] = useState(new Set());
   const [tags, chosenTags] = useState([{}]);
+
+  const navigate = useNavigate();
 
   //*below handles all fetches of items, categories, and locations
   useEffect(() => {
@@ -210,6 +213,9 @@ export const Organize = ({ items, fetchItems, showAll }) => {
                 src={item.image}
                 alt="Item Image"
                 className="w-full h-40 object-cover mb-4"
+                onClick={() => {
+                  navigate(`/item_details/${item.id}`);
+                }}
               />
               <p>Name: {item.name}</p>
               <p>Description: {item.description}</p>
