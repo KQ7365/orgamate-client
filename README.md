@@ -1,6 +1,6 @@
 # Orgamate - A personal assistant application to keep you organized
 
-Welcome to the README for the client side of a full-stack applicatio I developed. Below will provide details of this project.
+Welcome to the README for the client side of a full-stack application I developed. Below will provide details of this project.
 
 # Instructions to deploy app
 
