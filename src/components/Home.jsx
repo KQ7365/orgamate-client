@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import { postNewTaskItem } from "../services/postNewTaskItem.jsx";
 import { getAllPriorityLabels } from "../services/getAllPriorityLabels.jsx";
 import { deleteTaskItem } from "../services/deleteTaskItem.jsx";
+import { Calendar } from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 export const Home = ({ tasks, fetchTasks, showAll }) => {
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [allPriorityLabels, setAllPriorityLabels] = useState([
     {
       id: 0,
@@ -16,12 +19,17 @@ export const Home = ({ tasks, fetchTasks, showAll }) => {
     priority: 0,
   });
 
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
+
   useEffect(() => {
     fetchTasks(showAll);
 
     getAllPriorityLabels().then((priorityObj) => {
       setAllPriorityLabels(priorityObj);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showAll]);
 
   //*Below handles all of the Create New Task functionality
@@ -53,8 +61,6 @@ export const Home = ({ tasks, fetchTasks, showAll }) => {
       });
   };
 
-  //*Below handles all of the Delete task functionality
-
   const handleDeleteTask = (taskId) => {
     deleteTaskItem(taskId).then(fetchTasks);
   };
@@ -66,6 +72,10 @@ export const Home = ({ tasks, fetchTasks, showAll }) => {
       </h1>
 
       <h2 className="text-center text-3xl font-bold mb-4">All Tasks</h2>
+
+      <div className="mb-4">
+        <Calendar onChange={handleDateChange} value={selectedDate} />
+      </div>
 
       {tasks.map((task) => (
         <div
@@ -93,6 +103,7 @@ export const Home = ({ tasks, fetchTasks, showAll }) => {
           <label className="block mb-2">
             Task Item:
             <input
+              autoComplete="off"
               value={newTask.task_item}
               type="text"
               name="task_item"
@@ -104,6 +115,7 @@ export const Home = ({ tasks, fetchTasks, showAll }) => {
           <label className="block mb-2">
             Note:
             <input
+              autoComplete="off"
               value={newTask.note}
               type="text"
               name="note"
@@ -128,7 +140,7 @@ export const Home = ({ tasks, fetchTasks, showAll }) => {
 
           <button
             onClick={handleSaveNewTask}
-            className="btn mt-4 bg-green-200 border-2 border-green-300 rounded-md p-3 block w-full font-semibold"
+            className="btn mt-4 bg-black border-2 border-white rounded-md p-3 block w-full font-semibold text-white"
           >
             <span className="font-bold">Add to list</span>
           </button>
